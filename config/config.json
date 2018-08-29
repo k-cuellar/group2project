@@ -2,8 +2,9 @@
   "development": {
     "username": "root",
     "password": "root",
-    "database": "exampledb",
+    "database": "chat_n_dash",
     "host": "localhost",
+    "port": 8889,
     "dialect": "mysql"
   },
   "test": {
