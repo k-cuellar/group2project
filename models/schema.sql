@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+DROP DATABASE IF EXISTS chat_n_dash;
+CREATE DATABASE chat_n_dash;
+
+DROP DATABASE IF EXISTS chat_n_dash;
+CREATE DATABASE chat_n_dash;
+=======
 create database chat_n_dash;
 
 use chat_n_dash;
@@ -20,3 +27,4 @@ create table chat (
     msg varchar(1000) not null,
     msg_time timestamp
 );
+>>>>>>> b461103011b2e59494641edd174ff317a1a74282

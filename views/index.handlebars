@@ -1,34 +1,112 @@
-<div id="home">
+<div class="jumbotron jumbotron-fluid" id="jumbotron">
   <div class="container">
-    <div class="row">
-      <div class="col-8 offset-2">
-        <h1>{{msg}}</h1>
-        <h2>This is our Home Page!</h2>
-        <form class="clearfix mb-4" action="POST">
-          <div class="form-group">
-            <label for="example-text">Example Text</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
-          </div>
-          <div class="form-group">
-            <label for="example-description">Example Description</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
-          </div>
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
-        </form>
-        <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-danger float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul>
-      </div>
-    </div>
+    <h1 class="display-4">Chat n' Dash</h1>
+    <p class="lead">Welcome back.</p>
+    <button type="button" class="btn btn-warning">CHAT NOW!</button>
   </div>
+
 </div>
 
+<div class="container">
+  <div class="row">
+
+
+    <!--left half of page-->
+    <div class="col-md-6">
+
+      <div class="row">
+        <h3>Your Favorite Chats</h3>
+      </div>
+
+      <div class="row">
+        <div class="card">
+          <table class="table card-body">
+            <thead>
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Date of Chat</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">bob1</th>
+                <td>5 Stars</td>
+                <td>2/15/2018</td>
+              </tr>
+              <tr>
+                <th scope="row">troy2</th>
+                <td>5 Stars</td>
+                <td>5/3/2018</td>
+              </tr>
+              <tr>
+                <th scope="row">jenna3</th>
+                <td>4 Stars</td>
+                <td>12/4/2017</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+
+
+    <!--right half of page-->
+    <div class="col-md-6">
+
+      <div class="row">
+        <h3>Your Recent Chats</h3>
+      </div>
+
+      <div class="row">
+        <div class="card">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Date of Chat</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">robert</th>
+                <td>1 Star</td>
+                <td>8/28/2018</td>
+              </tr>
+              <tr>
+                <th scope="row">andrew</th>
+                <td>5 Stars</td>
+                <td>8/28/2018</td>
+              </tr>
+              <tr>
+                <th scope="row">bobby</th>
+                <td>2 Stars</td>
+                <td>12/4/2017</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+<<<<<<< HEAD
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+=======
 <h1>Realtime communication with WebRTC</h1>
 
 <video id="localVideo" autoplay playsinline></video>
@@ -49,3 +127,4 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 <script src="/js/index.js"></script>
+>>>>>>> fa05380c3d15af821ee46b0201876730a7ea2f34
