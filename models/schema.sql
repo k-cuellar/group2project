@@ -20,3 +20,9 @@ create table chat (
     msg varchar(1000) not null,
     msg_time timestamp
 );
+
+create table history (
+    user_1 varchar(255) not null,
+    user_2 varchar(255) not null,
+    chat_time timestamp
+);
