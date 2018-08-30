@@ -38,6 +38,8 @@ var os = require("os");
 var http = require("http");
 var socketIO = require("socket.io");
 
+var io = require("socket.io")(http);
+
 var videoApp = http.createServer(app);
 
 var io = socketIO.listen(videoApp);
@@ -93,6 +95,12 @@ io.sockets.on("connection", function(socket) {
 
   socket.on("bye", function() {
     console.log("received bye");
+  });
+});
+
+io.on("connection", function(socket) {
+  socket.on("chat message", function(msg) {
+    io.emit("chat message", msg);
   });
 });
 

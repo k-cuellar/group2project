@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="display-4">Chat n' Dash</h1>
     <p class="lead">Welcome back.</p>
-    <button type="button" class="btn btn-warning">CHAT NOW!</button>
+    <button type="button" class="btn btn-warning" href="/chat">CHAT NOW!</button>
   </div>
 
 </div>
@@ -101,23 +101,7 @@
 
 </div>
 
-<h1>Realtime communication with WebRTC</h1>
-
-<video id="localVideo" autoplay playsinline></video>
-<video id="remoteVideo" autoplay playsinline></video>
-
-
-<textarea id="dataChannelSend" disabled
-    placeholder="Press Start, enter some text, then press Send."></textarea>
-<textarea id="dataChannelReceive" disabled></textarea>
-
-<div id="buttons">
-  <button id="startButton">Start</button>
-  <button id="sendButton">Send</button>
-  <button id="closeButton">Stop</button>
-</div>
-
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-<script src="/js/video.js"></script>
+
