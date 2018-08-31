@@ -1,7 +1,6 @@
 require("dotenv").config();
 var express = require("express");
 var bodyParser = require("body-parser");
-var request = require("request");
 var exphbs = require("express-handlebars");
 
 var db = require("./models");
@@ -13,15 +12,6 @@ var PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
-
-var corsOptions = {
-  origin: process.env.ORIGIN_URL || "http://localhost",
-  optionsSuccessStatus: 200
-};
-
-app.use("/cors/*", function(req, res) {
-  req.pipe(request(req.params[0])).pipe(res);
-});
 
 // Handlebars
 app.engine(
@@ -46,7 +36,7 @@ if (process.env.NODE_ENV === "test") {
 
 var os = require("os");
 var http = require("http");
-var socketIO = require("socket.io");
+var socketIO = require("socket.io")(server, { origins: "*:*" });
 
 var videoApp = http.createServer(app);
 
