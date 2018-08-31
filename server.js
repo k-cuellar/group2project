@@ -36,13 +36,12 @@ if (process.env.NODE_ENV === "test") {
 
 var os = require("os");
 var http = require("http");
-var socketIO = require("socket.io");
-
-var io = require("socket.io")(http);
 
 var videoApp = http.createServer(app);
+var socketIO = require("socket.io")(videoApp, { origins: "*:*" });
 
 var io = socketIO.listen(videoApp);
+
 io.sockets.on("connection", function(socket) {
   // convenience function to log server messages on the client
   function log() {
