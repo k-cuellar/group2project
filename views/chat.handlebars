@@ -1,3 +1,5 @@
+<a href="/"><button type="button" class="btn btn-warning">HOME</button></a>
+
 <h1>Realtime communication with WebRTC</h1>
 
 <video id="localVideo" autoplay playsinline></video>
@@ -16,15 +18,15 @@
 
 <script>
   $(function () {
-        var socket = io();
-        $('form').submit(function(){
-          socket.emit('chat message', $('#m').val());
-          $('#m').val('');
-          return false;
-        });
-        socket.on('chat message', function(msg){
-          $('#messages').append($('<li>').text(msg));
-          window.scrollTo(0, document.body.scrollHeight);
-        });
-      });
+    var socket = io();
+    $('form').submit(function () {
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('chat message', function (msg) {
+      $('#messages').append($('<li>').text(msg));
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+  });
 </script>

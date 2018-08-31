@@ -10,7 +10,7 @@ var isStarted = false;
 var localStream;
 var pc;
 var remoteStream;
-var turnReady;
+// var turnReady;
 
 var pcConfig = {
   iceServers: [
@@ -21,10 +21,10 @@ var pcConfig = {
 };
 
 // Set up audio and video regardless of what devices are present.
-var sdpConstraints = {
-  offerToReceiveAudio: true,
-  offerToReceiveVideo: true
-};
+// var sdpConstraints = {
+//   offerToReceiveAudio: true,
+//   offerToReceiveVideo: true
+// };
 
 /////////////////////////////////////////////
 
@@ -221,7 +221,7 @@ function requestTurn(turnURL) {
     console.log("Getting TURN server from ", turnURL);
     // No TURN server. Get one from computeengineondemand.appspot.com:
     var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
         var turnServer = JSON.parse(xhr.responseText);
         console.log("Got TURN server: ", turnServer);
@@ -247,11 +247,11 @@ function handleRemoteStreamRemoved(event) {
   console.log("Remote stream removed. Event: ", event);
 }
 
-function hangup() {
-  console.log("Hanging up.");
-  stop();
-  sendMessage("bye");
-}
+// function hangup() {
+//   console.log("Hanging up.");
+//   stop();
+//   sendMessage("bye");
+// }
 
 function handleRemoteHangup() {
   console.log("Session terminated.");
@@ -264,5 +264,3 @@ function stop() {
   pc.close();
   pc = null;
 }
-
-
