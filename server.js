@@ -36,9 +36,9 @@ if (process.env.NODE_ENV === "test") {
 
 var os = require("os");
 var http = require("http");
-var socketIO = require("socket.io")(server, { origins: "*:*" });
 
 var videoApp = http.createServer(app);
+var socketIO = require("socket.io")(videoApp, { origins: "*:*" });
 
 var io = socketIO.listen(videoApp);
 

@@ -28,9 +28,9 @@ var pcConfig = {
 
 /////////////////////////////////////////////
 
-var room = "foo";
+// var room = "foo";
 // Could prompt for room name:
-// room = prompt('Enter room name:');
+var room = prompt("Enter room name:");
 
 var socket = io.connect();
 
