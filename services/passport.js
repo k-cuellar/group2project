@@ -1,9 +1,10 @@
 const passport = require("passport");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require("../config/keys");
+const db = require("../models");
 
 //INSERT SEQUELIZE USERS MODEL
-// const User = sequelize.model
+const User = db.User;
 
 //tells passport to get user ID and put that info into a cookie
 passport.serializeUser((user, done) => {

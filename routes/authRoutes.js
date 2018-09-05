@@ -1,4 +1,5 @@
 const passport = require("passport");
+const db = require("../models");
 
 module.exports = app => {
     app.get('/auth/google',
@@ -11,7 +12,7 @@ module.exports = app => {
         passport.authenticate('google'),
         (req, res) => {
             //PLACEHOLDER - insert redirect page upon login
-            res.redirect("/PLACEHOLDER");
+            res.redirect("/index");
         }
     );
 
