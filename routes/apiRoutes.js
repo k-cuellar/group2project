@@ -21,4 +21,10 @@ module.exports = function(app) {
       res.json(dbExample);
     });
   });
+
+  app.get("/googleId", function(req, res) {
+    db.User.findOne({ googleId: "1" }).then(function(user) {
+      res.json(user);
+    });
+  });
 };
