@@ -20,6 +20,8 @@ var pcConfig = {
   ]
 };
 
+var socket = io.connect();
+
 // Set up audio and video regardless of what devices are present.
 // var sdpConstraints = {
 //   offerToReceiveAudio: true,
@@ -30,37 +32,51 @@ var pcConfig = {
 
 // var room = "foo";
 // Could prompt for room name:
-var room = prompt("Enter room name:");
 
-var socket = io.connect();
+$("#startButton").on("click", function () {
+  var room = prompt("Enter room name:");
 
-if (room !== "") {
-  socket.emit("create or join", room);
-  console.log("Attempted to create or  join room", room);
-}
+  if (room !== "") {
+    socket.emit("create or join", room);
+    console.log("Attempted to create or  join room", room);
+  }
 
-socket.on("created", function(room) {
-  console.log("Created room " + room);
-  isInitiator = true;
-});
+  socket.on("created", function (room) {
+    console.log("Created room " + room);
 
-socket.on("full", function(room) {
-  console.log("Room " + room + " is full");
-});
+    //console log in id of socket
+    console.log("Socket ID: " + socket.id);
+    isInitiator = true;
+  });
 
-socket.on("join", function(room) {
-  console.log("Another peer made a request to join room " + room);
-  console.log("This peer is the initiator of room " + room + "!");
-  isChannelReady = true;
-});
+  socket.on("full", function (room) {
+    console.log("Room " + room + " is full");
+  });
 
-socket.on("joined", function(room) {
-  console.log("joined: " + room);
-  isChannelReady = true;
-});
+  socket.on("join", function (room) {
+    console.log("Another peer made a request to join room " + room);
+    console.log("This peer is the initiator of room " + room + "!");
+    isChannelReady = true;
+  });
 
-socket.on("log", function(array) {
-  console.log.apply(console, array);
+  socket.on("joined", function (room) {
+    console.log("joined: " + room);
+    isChannelReady = true;
+  });
+
+  socket.on("log", function (array) {
+    console.log.apply(console, array);
+  });
+
+  navigator.mediaDevices
+    .getUserMedia({
+      audio: true,
+      video: true
+    })
+    .then(gotStream)
+    .catch(function (e) {
+      alert("getUserMedia() error: " + e.name);
+    });
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -73,7 +89,7 @@ function sendMessage(message) {
 }
 
 // This client receives a message
-socket.on("message", function(message) {
+socket.on("message", function (message) {
   console.log("Client received message:", message);
   if (message === "got user media") {
     maybeStart();
@@ -107,7 +123,7 @@ navigator.mediaDevices
     video: true
   })
   .then(gotStream)
-  .catch(function(e) {
+  .catch(function (e) {
     alert("getUserMedia() error: " + e.name);
   });
 
@@ -147,7 +163,7 @@ function maybeStart() {
   }
 }
 
-window.onbeforeunload = function() {
+window.onbeforeunload = function () {
   sendMessage("bye");
 };
 
@@ -221,7 +237,7 @@ function requestTurn(turnURL) {
     console.log("Getting TURN server from ", turnURL);
     // No TURN server. Get one from computeengineondemand.appspot.com:
     var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
         var turnServer = JSON.parse(xhr.responseText);
         console.log("Got TURN server: ", turnServer);
