@@ -2,14 +2,12 @@ create database chat_n_dash;
 
 use chat_n_dash;
 
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS user (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_name VARCHAR(255) NOT NULL,
-    user_pw varchar(255) not null,
-    last_chat TIMESTAMP 
+    googleId varchar(255);
 	);
     
-create table if not exists favorites (
+create table if not exists favorite (
 	user_name varchar(255) not null,
     favorites varchar(255) not null
 );
