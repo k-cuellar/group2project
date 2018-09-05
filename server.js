@@ -1,7 +1,12 @@
 require("dotenv").config();
 var express = require("express");
+const cookieSession = require("cookie-session");
+const passport = require("passport");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
+const keys = require("./config/keys");
+
+require("./services/passport");
 
 var db = require("./models");
 
@@ -13,6 +18,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
+//to use cookies for session
+app.use(
+  cookieSession({
+    maxAge: 15*24*60*1000,
+    keys: [keys.cookieKey]
+  })
+);
+//tell passport to use cookies to manage authentication
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 // Handlebars
 app.engine(
   "handlebars",
@@ -23,8 +40,11 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // Routes
+require("./routes/authRoutes")(app);
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
+
+
 
 var syncOptions = { force: false };
 
