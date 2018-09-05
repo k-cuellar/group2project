@@ -16,12 +16,14 @@
 //       data: JSON.stringify(example)
 //     });
 //   },
+
 //   getExamples: function () {
 //     return $.ajax({
 //       url: "api/examples",
 //       type: "GET"
 //     });
 //   },
+
 //   deleteExample: function (id) {
 //     return $.ajax({
 //       url: "api/examples/" + id,
@@ -31,6 +33,7 @@
 // };
 
 // // refreshExamples gets new examples from the db and repopulates the list
+
 // var refreshExamples = function () {
 //   API.getExamples().then(function (data) {
 //     var $examples = data.map(function (example) {
@@ -61,6 +64,7 @@
 
 // // handleFormSubmit is called whenever we submit a new example
 // // Save the new example to the db and refresh the list
+
 // var handleFormSubmit = function (event) {
 //   event.preventDefault();
 
@@ -74,6 +78,7 @@
 //     return;
 //   }
 
+
 //   API.saveExample(example).then(function () {
 //     refreshExamples();
 //   });
@@ -84,6 +89,7 @@
 
 // // handleDeleteBtnClick is called when an example's delete button is clicked
 // // Remove the example from the db and refresh the list
+
 // var handleDeleteBtnClick = function () {
 //   var idToDelete = $(this)
 //     .parent()
