@@ -86,6 +86,7 @@ io.sockets.on("connection", function(socket) {
       : 0;
     log("Room " + room + " now has " + numClients + " client(s)");
 
+    ///THIS IS WHERE WE CAN OUTPUT USERID NAME IN CONSOLE
     if (numClients === 0) {
       socket.join(room);
       log("Client ID " + socket.id + " created room " + room);

@@ -11,6 +11,8 @@ var localStream;
 var pc;
 var remoteStream;
 // var turnReady;
+var hangupButton = $("#hangupButton");
+var startButton = $("#startButton");
 
 var pcConfig = {
   iceServers: [
@@ -33,8 +35,15 @@ var socket = io.connect();
 // var room = "foo";
 // Could prompt for room name:
 
+////NEED TO GET USERNAME TO APPEAR ON PAGE.
+////USE .EMIT TO SEND USERID INFO TO SERVER.JS,
+//WHICH WILL LISTEN TO THE EVENT AND CONSOLE.LOG THE USERID TO THE OTHER USER(OR BOTH)
+
 $("#startButton").on("click", function () {
   var room = prompt("Enter room name:");
+
+  hangupButton.prop("disabled", false);
+  startButton.prop("disabled", true);
 
   if (room !== "") {
     socket.emit("create or join", room);
@@ -77,6 +86,15 @@ $("#startButton").on("click", function () {
     .catch(function (e) {
       alert("getUserMedia() error: " + e.name);
     });
+
+  ///timer for switching to next chat
+  // setTimeout(function() {
+  //   location.reload();
+  // }, 3000);
+});
+
+$("#hangupButton").on("click", function() {
+  location.reload();
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -262,12 +280,6 @@ function handleRemoteStreamAdded(event) {
 function handleRemoteStreamRemoved(event) {
   console.log("Remote stream removed. Event: ", event);
 }
-
-// function hangup() {
-//   console.log("Hanging up.");
-//   stop();
-//   sendMessage("bye");
-// }
 
 function handleRemoteHangup() {
   console.log("Session terminated.");
