@@ -98,9 +98,19 @@ io.sockets.on("connection", function(socket) {
       socket.join(room);
       socket.emit("joined", room, socket.id);
       io.sockets.in(room).emit("ready");
+
+      //THIS CONSOLE.LOGS SOCKET.ID OF EVERYONE IN THE ROOM. 
+      io.of('/').in(room).clients((error, clients) => {
+        if (error) throw error;
+      
+        // Returns an array of client IDs like ["Anw2LatarvGVVXEIAAAD"]
+        console.log(clients); 
+      });
+      
     } else {
       // max two clients
       socket.emit("full", room);
+      
     }
   });
 
