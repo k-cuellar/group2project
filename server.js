@@ -6,9 +6,11 @@ var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 const keys = require("./config/keys");
 
-require("./services/passport");
 
 var db = require("./models");
+require("./services/passport")(passport, db.User);
+
+
 
 var app = express();
 var PORT = process.env.PORT || 3000;
