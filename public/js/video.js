@@ -35,10 +35,6 @@ var socket = io.connect();
 // var room = "foo";
 // Could prompt for room name:
 
-////NEED TO GET USERNAME TO APPEAR ON PAGE.
-////USE .EMIT TO SEND USERID INFO TO SERVER.JS,
-//WHICH WILL LISTEN TO THE EVENT AND CONSOLE.LOG THE USERID TO THE OTHER USER(OR BOTH)
-
 $("#startButton").on("click", function () {
   var room = prompt("Enter room name:");
 
@@ -87,7 +83,7 @@ $("#startButton").on("click", function () {
       alert("getUserMedia() error: " + e.name);
     });
 
-  ///timer for switching to next chat
+  ///timer for switching to next chat. Change to 60 secs once we have everything
   // setTimeout(function() {
   //   location.reload();
   // }, 3000);
