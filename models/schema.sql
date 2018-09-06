@@ -2,7 +2,7 @@ create database chat_n_dash;
 
 use chat_n_dash;
 
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS User (
     id INT AUTO_INCREMENT PRIMARY KEY,
     googleId varchar(255);
 	);
