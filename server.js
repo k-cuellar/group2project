@@ -23,6 +23,7 @@ app.use(express.static("public"));
 //to use cookies for session
 app.use(
   cookieSession({
+    //keep cookie session for 15 days
     maxAge: 15*24*60*1000,
     keys: [keys.cookieKey]
   })

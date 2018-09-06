@@ -1,30 +1,34 @@
 var db = require("../models");
 
 module.exports = function(app) {
-  // Get all examples
-  app.get("/api/examples", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
-      res.json(dbExamples);
-    });
+  // gets the first available room with a user in it that I have not already matched with
+  app.get("/api/rooms/:user_id", function(req, res) {
+    db.sequelize
+      .query(
+        "select id, user_id1 from rooms where user_id2 is null and user_id1 not in (select user_id1 from histories where user_id2 = ? union all select user_id2 from histories where user_id1 = ?) limit 1",
+        { replacements: [req.params.user_id, req.params.user_id] }
+      )
+      .then(function(firstRoom) {
+        res.json(firstRoom);
+      });
   });
 
-  // Create a new example
-  app.post("/api/examples", function(req, res) {
-    db.Example.create(req.body).then(function(dbExample) {
+  // create an empty room if one doesn't exist above
+  app.post("/api/rooms", function(req, res) {
+    db.Room.create({
+      user_id1: req.body.user_id1,
+      user_id2: null
+    }).then(function(dbExample) {
       res.json(dbExample);
     });
   });
 
   // Delete an example by id
   app.delete("/api/examples/:id", function(req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
+    db.Example.destroy({ where: { id: req.params.id } }).then(function(
+      dbExample
+    ) {
       res.json(dbExample);
-    });
-  });
-
-  app.get("/googleId", function(req, res) {
-    db.User.findOne({ googleId: "1" }).then(function(user) {
-      res.json(user);
     });
   });
 };
