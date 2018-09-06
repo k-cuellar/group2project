@@ -4,5 +4,5 @@ module.exports = function(sequelize, DataTypes) {
       user_id2: DataTypes.INTEGER
       is_match: DataTypes.BOOLEAN
     });
-    return Example;
+    return Favorite;
   };
