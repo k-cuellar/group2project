@@ -34,8 +34,40 @@ var socket = io.connect();
 
 // var room = "foo";
 // Could prompt for room name:
-
+//CLICK FUNCTION TO START CHAT
 $("#startButton").on("click", function () {
+
+  //Get userid and store it here
+  var user = 1;
+
+  $.get("/api/rooms/" + user, function (data) {
+    if (data[0] === undefined || data[1].length === 0) {
+      console.log("Nothing is here");
+
+      ///INSERT POST REQUEST HERE
+
+    }
+    else {
+      console.log("Something is here!!");
+
+      var roomNum = data[0][0].id;
+      console.log(roomNum);
+
+      var user2 = {
+        user_id2: user
+      };
+
+      $.ajax({
+        method: "PUT",
+        url: "/api/rooms/"+roomNum,
+        data: user2
+      })
+        .then(function (data) {
+          console.log("UPDATED!!!!");
+        });
+    }
+  });
+
   var room = prompt("Enter room name:");
 
   hangupButton.prop("disabled", false);
@@ -89,7 +121,7 @@ $("#startButton").on("click", function () {
   // }, 3000);
 });
 
-$("#hangupButton").on("click", function() {
+$("#hangupButton").on("click", function () {
   location.reload();
 });
 
