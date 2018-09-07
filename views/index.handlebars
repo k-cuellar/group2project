@@ -19,11 +19,11 @@
   </div>
 </nav>
 
-<div class="jumbotron jumbotron-fluid" id="jumbotron">
+<div class="jumbotron jumbotron-fluid centered" id="jumbotron">
   <div class="container">
     <h1 class="display-4 logo">Chat n' Dash</h1>
     <p class="lead textContent">Welcome back.</p>
-    <a href="/chat"><button type="button" class="btn btn-warning textContent">CHAT NOW!</button></a>
+    <a href="/chat" class="centered"><button type="button" class="btn btn-warning textContent centered">CHAT NOW!</button></a>
 
   </div>
 
@@ -46,77 +46,18 @@
             <thead>
               <tr>
                 <th scope="col">Username</th>
-                <th scope="col">Rating</th>
                 <th scope="col">Date of Chat</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th scope="row">bob1</th>
-                <td>5 Stars</td>
-                <td>2/15/2018</td>
-              </tr>
-              <tr>
-                <th scope="row">troy2</th>
-                <td>5 Stars</td>
-                <td>5/3/2018</td>
-              </tr>
-              <tr>
-                <th scope="row">jenna3</th>
-                <td>4 Stars</td>
-                <td>12/4/2017</td>
+                <th scope="row">{{dbFavorite.user_id2}}</th>
+                <td>{{dbFavorite.user_id1}}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-
-
-    </div>
-
-
-
-
-
-    <!--right half of page-->
-    <div class="col-md-6">
-
-      <div class="row">
-        <h3>Your Recent Chats</h3>
-      </div>
-
-      <div class="row">
-        <div class="card">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Username</th>
-                <th scope="col">Rating</th>
-                <th scope="col">Date of Chat</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">robert</th>
-                <td>1 Star</td>
-                <td>8/28/2018</td>
-              </tr>
-              <tr>
-                <th scope="row">andrew</th>
-                <td>5 Stars</td>
-                <td>8/28/2018</td>
-              </tr>
-              <tr>
-                <th scope="row">bobby</th>
-                <td>2 Stars</td>
-                <td>12/4/2017</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-
     </div>
 
   </div>

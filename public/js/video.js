@@ -32,7 +32,7 @@ var socket = io.connect();
 // };
 
 //Deletes any rooms associated with user before starting
-$.get("/api/users/me", function(data){
+$.get("/api/users/me", function (data) {
   var deleteRoom = data.id
 
   $.ajax({
@@ -58,6 +58,9 @@ $("#startButton").on("click", function () {
         console.log("No available rooms. Creating new room...");
         //NEED TO DELETE ROOM IN DATABASE WHEN USER EXITS
 
+        //start the loading circle
+        $("#loadingCircle").removeClass("hide");
+
         var user1 = {
           user_id1: user,
           user_id2: null
@@ -76,6 +79,8 @@ $("#startButton").on("click", function () {
           });
       } else if (data[0]) {
         console.log("Room available!! Entering now...");
+
+        $("#loadingCircle").addClass("hide");
 
         roomNum = data[0][0].id;
         console.log(roomNum);
@@ -181,7 +186,7 @@ function sendMessage(message) {
   socket.emit("message", message);
 }
 
-socket.on("message", function(message) {
+socket.on("message", function (message) {
   if (message === "bye") {
     $.ajax({
       method: "DELETE",
