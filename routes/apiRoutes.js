@@ -10,6 +10,9 @@ module.exports = function(app) {
       )
       .then(function(firstRoom) {
         res.json(firstRoom);
+
+        //CONSOLE LOGS GOOGLE USER INFO IN TERMINAL
+        console.log(req.user.dataValues);
       });
   });
 
@@ -20,6 +23,16 @@ module.exports = function(app) {
       user_id2: null
     }).then(function(dbExample) {
       res.json(dbExample);
+    });
+  });
+
+  app.put("/api/rooms/:id", function(req, res) {
+    db.Room.update(req.body, {
+      where: {
+        id: req.params.id
+      }
+    }).then(function(updateRoom) {
+      res.json(updateRoom);
     });
   });
 
