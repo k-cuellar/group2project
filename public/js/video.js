@@ -59,7 +59,7 @@ $("#startButton").on("click", function () {
             console.log("Added new room to database...");
           });
 
-          startChat(user);
+        startChat(user);
 
       } else {
         console.log("Something is here!!");
@@ -94,7 +94,7 @@ $("#hangupButton").on("click", function () {
   location.reload();
 });
 
-function startChat(roomNum){
+function startChat(roomNum) {
   var room = roomNum;
 
   hangupButton.prop("disabled", false);
