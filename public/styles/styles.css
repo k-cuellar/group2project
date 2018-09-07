@@ -68,3 +68,16 @@
   background-color:#f9f99d;
   color: #424239;
 }
+
+.logo {
+  font-family: 'Fugaz One', cursive;
+}
+
+.textContent {
+  font-family: 'Karla', sans-serif;
+}
+
+.textContentBold {
+  font-family: 'Karla', sans-serif;
+  font-weight: 700i;
+}
