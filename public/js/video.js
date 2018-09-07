@@ -31,6 +31,18 @@ var socket = io.connect();
 //   offerToReceiveVideo: true
 // };
 
+//Deletes any rooms associated with user before starting
+$.get("/api/users/me", function(data){
+  var deleteRoom = data.id
+
+  $.ajax({
+    method: "DELETE",
+    url: "/api/users/" + deleteRoom
+  }).then(function () {
+    console.log("Room associated with user has been cleared");
+  });
+});
+
 /////////////////////////////////////////////
 
 //CLICK FUNCTION TO START CHAT
@@ -56,7 +68,7 @@ $("#startButton").on("click", function () {
           .then(function (data) {
             // log the data we found
             console.log(data);
-            console.log("Added new room to database...");
+            console.log("Adding new room to database...");
             startChat(data.id);
 
             var roomNum = data.id;
@@ -93,8 +105,8 @@ $("#hangupButton").on("click", function () {
     url: "/api/rooms/" + roomNum
   }).then(function () {
     console.log("Room has been deleted...");
+    location.reload();
   });
-  location.reload();
 });
 
 function startChat(roomNum) {
@@ -107,7 +119,7 @@ function startChat(roomNum) {
 
   if (room !== "") {
     socket.emit("create or join", room);
-    console.log("Attempted to create or  join room", room);
+    console.log("Attempted to create or join room", room);
   }
 
   socket.on("created", function (room) {
@@ -135,7 +147,7 @@ function startChat(roomNum) {
         method: "DELETE",
         url: "/api/rooms/" + room
       }).then(function () {
-        console.log("Room has been deleted...");
+        console.log("Room has been deleted.");
       });
       location.reload();
     }, 60000);
