@@ -43,7 +43,7 @@ $("#startButton").on("click", function () {
 
     $.get("/api/rooms", function (data) {
       if (data[0] === undefined || data[0].length === 0) {
-        console.log("Nothing is here. Creating new room...");
+        console.log("No available rooms. Creating new room...");
         //NEED TO DELETE ROOM IN DATABASE WHEN USER EXITS
 
         var user1 = {
@@ -58,9 +58,12 @@ $("#startButton").on("click", function () {
             console.log(data);
             console.log("Added new room to database...");
             startChat(data.id);
+
+            var roomNum = data.id;
+            return roomNum;
           });
-      } else if(data[0]){
-        console.log("Something is here!!");
+      } else if (data[0]) {
+        console.log("Room available!! Entering now...");
 
         roomNum = data[0][0].id;
         console.log(roomNum);
@@ -78,12 +81,19 @@ $("#startButton").on("click", function () {
         });
 
         startChat(roomNum);
+        return roomNum;
       }
     });
-  });  
+  });
 });
 
 $("#hangupButton").on("click", function () {
+  $.ajax({
+    method: "DELETE",
+    url: "/api/rooms/" + roomNum
+  }).then(function () {
+    console.log("Room has been deleted...");
+  });
   location.reload();
 });
 
@@ -118,10 +128,17 @@ function startChat(roomNum) {
     isChannelReady = true;
 
     ///timer for switching to next chat. Change to 60 secs once we have everything
-    setTimeout(function() {
+    setTimeout(function () {
       console.log("Time up!");
+
+      $.ajax({
+        method: "DELETE",
+        url: "/api/rooms/" + room
+      }).then(function () {
+        console.log("Room has been deleted...");
+      });
       location.reload();
-    }, 3000);
+    }, 60000);
   });
 
   socket.on("joined", function (room) {
@@ -151,6 +168,17 @@ function sendMessage(message) {
   console.log("Client sending message: ", message);
   socket.emit("message", message);
 }
+
+socket.on("message", function(message) {
+  if (message === "bye") {
+    $.ajax({
+      method: "DELETE",
+      url: "/api/rooms/" + roomNum
+    }).then(function () {
+      console.log("Room has been deleted...");
+    });
+  }
+});
 
 // This client receives a message
 socket.on("message", function (message) {

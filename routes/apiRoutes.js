@@ -47,12 +47,12 @@ module.exports = function(app) {
     }
   });
 
-  // Delete an example by id
-  app.delete("/api/examples/:id", function(req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function(
-      dbExample
+  // Delete a room by id
+  app.delete("/api/rooms/:id", function(req, res) {
+    db.Room.destroy({ where: { id: req.params.id } }).then(function(
+      deleteRoom
     ) {
-      res.json(dbExample);
+      res.json(deleteRoom);
     });
   });
 };
