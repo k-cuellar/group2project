@@ -13,6 +13,7 @@ var remoteStream;
 // var turnReady;
 var hangupButton = $("#hangupButton");
 var startButton = $("#startButton");
+var roomNum;
 
 var pcConfig = {
   iceServers: [
@@ -36,48 +37,65 @@ var socket = io.connect();
 $("#startButton").on("click", function () {
 
   //Get userid and store it here
-  var user = 1;
+  $.get("/api/users/me", function (data) {
+    //GRABS USER'S ID NUMBER
+    var user = data.id;
 
-  $.get("/api/rooms/" + user, function (data) {
-    if (data[0] === undefined || data[1].length === 0) {
-      console.log("Nothing is here");
+    $.get("/api/rooms", function (data) {
+      if (data[0] === undefined || data[1].length === 0) {
+        console.log("Nothing is here. Creating new room...");
+        //NEED TO DELETE ROOM IN DATABASE WHEN USER EXITS
 
-      //NEED TO DELETE ROOM IN DATABASE WHEN USER EXITS
+        var user1 = {
+          user_id1: user,
+          user_id2: null
+        };
 
-      var user1 = {
-        user_id1: user,
-        user_id2: null
-      };
+        $.post("/api/rooms", user1)
+          // on success, run this callback
+          .then(function (data) {
+            // log the data we found
+            console.log(data);
+            console.log("Added new room to database...");
+          });
 
-      $.post("/api/rooms", user1)
-        // on success, run this callback
-        .then(function (data) {
-          // log the data we found
-          console.log(data);
-          console.log("Added new room to database...");
+          startChat(user);
+
+      } else {
+        console.log("Something is here!!");
+
+        roomNum = data[0][0].id;
+        console.log(roomNum);
+
+        var user2 = {
+          user_id2: user
+        };
+
+        $.ajax({
+          method: "PUT",
+          url: "/api/rooms/" + roomNum,
+          data: user2
+        }).then(function (data) {
+          console.log("UPDATED!!!!");
         });
 
-    } else {
-      console.log("Something is here!!");
-
-      var roomNum = data[0][0].id;
-      console.log(roomNum);
-
-      var user2 = {
-        user_id2: user
-      };
-
-      $.ajax({
-        method: "PUT",
-        url: "/api/rooms/" + roomNum,
-        data: user2
-      }).then(function (data) {
-        console.log("UPDATED!!!!");
-      });
-    }
+        startChat(roomNum);
+      }
+    });
   });
 
-  var room = prompt("Enter room name:");
+  ///timer for switching to next chat. Change to 60 secs once we have everything
+  // setTimeout(function() {
+  //   location.reload();
+  // }, 3000);
+});
+
+$("#hangupButton").on("click", function () {
+  location.reload();
+});
+
+function startChat(roomNum){
+  var room = roomNum;
 
   hangupButton.prop("disabled", false);
   startButton.prop("disabled", true);
@@ -123,17 +141,7 @@ $("#startButton").on("click", function () {
     .catch(function (e) {
       alert("getUserMedia() error: " + e.name);
     });
-
-  ///timer for switching to next chat. Change to 60 secs once we have everything
-  // setTimeout(function() {
-  //   location.reload();
-  // }, 3000);
-});
-
-$("#hangupButton").on("click", function () {
-  location.reload();
-});
-
+}
 //////////////////////////////////////////////////////////////////////
 //USED FOR CHAT
 //////////
