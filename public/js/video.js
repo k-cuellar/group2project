@@ -42,7 +42,7 @@ $("#startButton").on("click", function () {
     var user = data.id;
 
     $.get("/api/rooms", function (data) {
-      if (data[0] === undefined || data[1].length === 0) {
+      if (data[0] === undefined || data[0].length === 0) {
         console.log("Nothing is here. Creating new room...");
         //NEED TO DELETE ROOM IN DATABASE WHEN USER EXITS
 
@@ -57,11 +57,9 @@ $("#startButton").on("click", function () {
             // log the data we found
             console.log(data);
             console.log("Added new room to database...");
+            startChat(data.id);
           });
-
-        startChat(user);
-
-      } else {
+      } else if(data[0]){
         console.log("Something is here!!");
 
         roomNum = data[0][0].id;
@@ -82,12 +80,7 @@ $("#startButton").on("click", function () {
         startChat(roomNum);
       }
     });
-  });
-
-  ///timer for switching to next chat. Change to 60 secs once we have everything
-  // setTimeout(function() {
-  //   location.reload();
-  // }, 3000);
+  });  
 });
 
 $("#hangupButton").on("click", function () {
@@ -96,6 +89,8 @@ $("#hangupButton").on("click", function () {
 
 function startChat(roomNum) {
   var room = roomNum;
+
+  room.toString();
 
   hangupButton.prop("disabled", false);
   startButton.prop("disabled", true);
@@ -121,6 +116,12 @@ function startChat(roomNum) {
     console.log("Another peer made a request to join room " + room);
     console.log("This peer is the initiator of room " + room + "!");
     isChannelReady = true;
+
+    ///timer for switching to next chat. Change to 60 secs once we have everything
+    setTimeout(function() {
+      console.log("Time up!");
+      location.reload();
+    }, 3000);
   });
 
   socket.on("joined", function (room) {
