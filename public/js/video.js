@@ -32,8 +32,6 @@ var socket = io.connect();
 
 /////////////////////////////////////////////
 
-// var room = "foo";
-// Could prompt for room name:
 //CLICK FUNCTION TO START CHAT
 $("#startButton").on("click", function () {
 
@@ -43,8 +41,6 @@ $("#startButton").on("click", function () {
   $.get("/api/rooms/" + user, function (data) {
     if (data[0] === undefined || data[1].length === 0) {
       console.log("Nothing is here");
-
-      ///INSERT POST REQUEST HERE
 
       //NEED TO DELETE ROOM IN DATABASE WHEN USER EXITS
 

@@ -2,11 +2,14 @@ var db = require("../models");
 
 module.exports = function(app) {
   // gets the first available room with a user in it that I have not already matched with
-  app.get("/api/rooms/:user_id", function(req, res) {
+  app.get("/api/rooms", function(req, res) {
+    var myUser = req.user.dataValues.id;
+    console.log(myUser.toString());
+
     db.sequelize
       .query(
         "select id, user_id1 from rooms where user_id2 is null and user_id1 not in (select user_id1 from histories where user_id2 = ? union all select user_id2 from histories where user_id1 = ?) limit 1",
-        { replacements: [req.params.user_id, req.params.user_id] }
+        { replacements: [myUser, myUser] }
       )
       .then(function(firstRoom) {
         res.json(firstRoom);
