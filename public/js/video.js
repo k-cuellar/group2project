@@ -45,9 +45,7 @@ $("#startButton").on("click", function () {
       console.log("Nothing is here");
 
       ///INSERT POST REQUEST HERE
-
-    }
-    else {
+    } else {
       console.log("Something is here!!");
 
       var roomNum = data[0][0].id;
@@ -59,7 +57,7 @@ $("#startButton").on("click", function () {
 
       $.ajax({
         method: "PUT",
-        url: "/api/rooms/"+roomNum,
+        url: "/api/rooms/" + roomNum,
         data: user2
       })
         .then(function (data) {
