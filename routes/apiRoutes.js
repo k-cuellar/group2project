@@ -10,6 +10,9 @@ module.exports = function(app) {
       )
       .then(function(firstRoom) {
         res.json(firstRoom);
+
+        //CONSOLE LOGS GOOGLE USER INFO IN TERMINAL
+        console.log(req.user.dataValues);
       });
   });
 

@@ -45,6 +45,22 @@ $("#startButton").on("click", function () {
       console.log("Nothing is here");
 
       ///INSERT POST REQUEST HERE
+
+      //NEED TO DELETE ROOM IN DATABASE WHEN USER EXITS
+
+      var user1 = {
+        user_id1: user,
+        user_id2: null
+      };
+
+      $.post("/api/rooms", user1)
+        // on success, run this callback
+        .then(function (data) {
+          // log the data we found
+          console.log(data);
+          console.log("Added new room to database...");
+        });
+
     } else {
       console.log("Something is here!!");
 
@@ -59,10 +75,9 @@ $("#startButton").on("click", function () {
         method: "PUT",
         url: "/api/rooms/" + roomNum,
         data: user2
-      })
-        .then(function (data) {
-          console.log("UPDATED!!!!");
-        });
+      }).then(function (data) {
+        console.log("UPDATED!!!!");
+      });
     }
   });
 
