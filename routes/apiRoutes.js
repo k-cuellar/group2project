@@ -7,7 +7,7 @@ module.exports = function (app) {
     var myUser = req.user.dataValues.id;
     db.sequelize
       .query(
-        "select id, user_id1 from rooms where user_id2 is null and user_id1 not in (select user_id1 from histories where user_id2 = ? union all select user_id2 from histories where user_id1 = ?) limit 1",
+        "select id, user_id1 from Rooms where user_id2 is null and user_id1 not in (select user_id1 from histories where user_id2 = ? union all select user_id2 from histories where user_id1 = ?) limit 1",
         { replacements: [myUser, myUser] }
       )
       .then(function (firstRoom) {

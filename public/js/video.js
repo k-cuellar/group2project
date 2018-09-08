@@ -186,16 +186,16 @@ function sendMessage(message) {
   socket.emit("message", message);
 }
 
-socket.on("message", function (message) {
-  if (message === "bye") {
-    $.ajax({
-      method: "DELETE",
-      url: "/api/rooms/" + roomNum
-    }).then(function () {
-      console.log("Room has been deleted...");
-    });
-  }
-});
+// socket.on("message", function (message) {
+//   if (message === "bye") {
+//     $.ajax({
+//       method: "DELETE",
+//       url: "/api/rooms/" + roomNum
+//     }).then(function () {
+//       console.log("Room has been deleted...");
+//     });
+//   }
+// });
 
 // This client receives a message
 socket.on("message", function (message) {
