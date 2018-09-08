@@ -22,7 +22,7 @@ module.exports = function (passport, user) {
         new GoogleStrategy({
             clientID: keys.googleClientID,
             clientSecret: keys.googleClientSecret,
-            callbackURL: process.env.GOOGLE_AUTH_CALLBACK_URL || "/auth/google/callback",
+            callbackURL: "/auth/google/callback",
             //workaround to allow heroku to use google Oauth
             proxy: true
         },
