@@ -12,7 +12,12 @@ module.exports = function(app) {
   });
 
   app.get("/index", function(req, res) {
-    res.render("index");
+    // res.render("index");
+    db.Favorite.findAll({}).then(function(dbFavorite) {
+      res.render("index", {
+        dbFavorite: dbFavorite
+      });
+    });
   });
 
   // Render 404 page for any unmatched routes

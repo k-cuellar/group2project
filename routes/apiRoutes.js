@@ -39,7 +39,7 @@ module.exports = function(app) {
   });
 
   //Grabs user's unique id based on google id
-  app.get('/api/users/me',function(req, res) {
+  app.get("/api/users/me", function(req, res) {
     if (req.user) {
       res.json(req.user);
     } else {
@@ -47,12 +47,20 @@ module.exports = function(app) {
     }
   });
 
-  // Delete an example by id
-  app.delete("/api/examples/:id", function(req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function(
-      dbExample
+  // Delete a room by id
+  app.delete("/api/rooms/:id", function(req, res) {
+    db.Room.destroy({ where: { id: req.params.id } }).then(function(
+      deleteRoom
     ) {
-      res.json(dbExample);
+      res.json(deleteRoom);
+    });
+  });
+
+  app.delete("/api/users/:id", function(req, res) {
+    db.Room.destroy({ where: { user_id1: req.params.id } }).then(function(
+      deleteRoom
+    ) {
+      res.json(deleteRoom);
     });
   });
 };

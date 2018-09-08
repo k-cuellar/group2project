@@ -22,26 +22,23 @@
 
 <!--Container-->
 <div class="container">
-  <button id="favoriteButton">Add Favorite</button>
+
+  <video id="localVideo" class="videoBox"autoplay playsinline></video>
+  <video id="remoteVideo" class="videoBox"autoplay playsinline></video>
+
+  <div id="loadingCircle" class="lds-hourglass hide"></div>
 
   <div>
-    <button id="startButton">Start</button>
-    <button id="hangupButton" disabled >Hang Up</button>
-  </div>
-
-  <video id="localVideo" autoplay playsinline></video>
-  <video id="remoteVideo" autoplay playsinline></video>
-
-  <div>
-    <button id="startButton">Start</button>
-    <button id="hangupButton" disabled >Hang Up</button>
+    <button id="startButton" class="btn btn-warning textContent centered">Start</button>
+    <button id="hangupButton" class="btn btn-warning textContent centered"disabled >Hang Up</button>
+    <button id="favoriteButton" class="btn btn-warning textContent centered" disabled>Favorite</button>
   </div>
 
 
-  <ul id="messages"></ul>
+  {{!-- <ul id="messages"></ul>
   <form action="">
     <input id="m" autocomplete="off" /><button>Send</button>
-  </form>
+  </form> --}}
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
