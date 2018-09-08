@@ -8,7 +8,7 @@ const keys = require("./config/keys");
 
 
 var db = require("./models");
-require("./services/passport")(passport, db.User);
+require("./services/passport.js")(passport, db.User);
 
 
 

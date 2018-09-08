@@ -1,20 +1,34 @@
-create database chat_n_dash;
-
 use chat_n_dash;
 
-CREATE TABLE IF NOT EXISTS User (
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    googleId varchar(255);
-	);
+    googleID varchar(255),
+    createdAt DATETIME,
+    updatedAt DATETIME
+    );
     
-create table if not exists favorite (
-	user_name varchar(255) not null,
-    favorites varchar(255) not null
-);
-
-create table chat (
-	user_1 varchar(255) not null,
-    user_2 varchar(255) not null,
-    msg varchar(1000) not null,
-    msg_time timestamp
-);
+CREATE TABLE rooms (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id1 INTEGER,
+    user_id2 INTEGER,
+    createdAt DATETIME,
+    updatedAt DATETIME
+    );
+    
+ CREATE TABLE histories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id1 INTEGER,
+    user_id2 INTEGER,
+    date_matched DATETIME,
+    createdAt DATETIME,
+    updatedAt DATETIME
+    );   
+    
+create table favorites (
+id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id1 INTEGER,
+    user_id2 INTEGER,
+    is_match BOOLEAN,
+    createdAt DATETIME,
+    updatedAt DATETIME
+    )
