@@ -32,16 +32,16 @@ var socket = io.connect();
 // };
 
 //Deletes any rooms associated with user before starting
-$.get("/api/users/me", function (data) {
-  var deleteRoom = data.id
+// $.get("/api/users/me", function (data) {
+//   var deleteRoom = data.id
 
-  $.ajax({
-    method: "DELETE",
-    url: "/api/users/" + deleteRoom
-  }).then(function () {
-    console.log("Room associated with user has been cleared");
-  });
-});
+//   $.ajax({
+//     method: "DELETE",
+//     url: "/api/users/" + deleteRoom
+//   }).then(function () {
+//     console.log("Room associated with user has been cleared");
+//   });
+// });
 
 /////////////////////////////////////////////
 
@@ -145,17 +145,17 @@ function startChat(roomNum) {
     isChannelReady = true;
 
     ///timer for switching to next chat. Change to 60 secs once we have everything
-    setTimeout(function () {
-      console.log("Time up!");
+    // setTimeout(function () {
+    //   console.log("Time up!");
 
-      $.ajax({
-        method: "DELETE",
-        url: "/api/rooms/" + room
-      }).then(function () {
-        console.log("Room has been deleted.");
-      });
-      location.reload();
-    }, 60000);
+    //   $.ajax({
+    //     method: "DELETE",
+    //     url: "/api/rooms/" + room
+    //   }).then(function () {
+    //     console.log("Room has been deleted.");
+    //   });
+    //   location.reload();
+    // }, 60000);
   });
 
   socket.on("joined", function (room) {
@@ -186,16 +186,16 @@ function sendMessage(message) {
   socket.emit("message", message);
 }
 
-socket.on("message", function (message) {
-  if (message === "bye") {
-    $.ajax({
-      method: "DELETE",
-      url: "/api/rooms/" + roomNum
-    }).then(function () {
-      console.log("Room has been deleted...");
-    });
-  }
-});
+// socket.on("message", function (message) {
+//   if (message === "bye") {
+//     $.ajax({
+//       method: "DELETE",
+//       url: "/api/rooms/" + roomNum
+//     }).then(function () {
+//       console.log("Room has been deleted...");
+//     });
+//   }
+// });
 
 // This client receives a message
 socket.on("message", function (message) {
