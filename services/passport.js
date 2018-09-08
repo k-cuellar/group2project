@@ -27,7 +27,7 @@ module.exports = function (passport, user) {
             proxy: true
         },
             async (accessToken, refreshToken, profile, done) => {
-                const existingUser = await User.findOne({googleId: '117360014093097672456'})
+                const existingUser = await User.findOne({ googleId: profile.id })
 
                 if (existingUser) {
                     return done(null, existingUser);

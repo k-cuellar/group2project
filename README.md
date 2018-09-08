@@ -10,4 +10,14 @@ Inspired by the web app Chatroulette, our app creates a Peer to Peer connection 
 
 - Passport
   - Used for authentication. We used Google's Oauth to validate user information.
-  - Also used as middleware 
+  - Used as middleware to protect any routes where user should be logged in to view.
+
+- Socket.io
+  - Used to create p2p connection between users.
+
+- WebRTC
+  - Used to create video feed for chat feature using Real Time Communications. 
+
+### Future Features
+
+In the future, we would want to improve the app in a few ways. At the top of the wish list, we want to include a text chat feature for the users to interact with eachother. We also think some ice-breakers might be nice for the chat feature, so possibly including some simple games like tic-tac-toe for the users to play is on the list. We would love to see the app become completely mobile-responsive, as well as creating proper branding for the app.
