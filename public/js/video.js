@@ -31,6 +31,18 @@ var socket = io.connect();
 //   offerToReceiveVideo: true
 // };
 
+//Deletes any rooms associated with user before starting
+$.get("/api/users/me", function (data) {
+  var deleteRoom = data.id
+
+  $.ajax({
+    method: "DELETE",
+    url: "/api/users/" + deleteRoom
+  }).then(function () {
+    console.log("Room associated with user has been cleared");
+  });
+});
+
 /////////////////////////////////////////////
 
 //CLICK FUNCTION TO START CHAT
@@ -43,8 +55,11 @@ $("#startButton").on("click", function () {
 
     $.get("/api/rooms", function (data) {
       if (data[0] === undefined || data[0].length === 0) {
-        console.log("Nothing is here. Creating new room...");
+        console.log("No available rooms. Creating new room...");
         //NEED TO DELETE ROOM IN DATABASE WHEN USER EXITS
+
+        //start the loading circle
+        $("#loadingCircle").removeClass("hide");
 
         var user1 = {
           user_id1: user,
@@ -56,11 +71,16 @@ $("#startButton").on("click", function () {
           .then(function (data) {
             // log the data we found
             console.log(data);
-            console.log("Added new room to database...");
+            console.log("Adding new room to database...");
             startChat(data.id);
+
+            var roomNum = data.id;
+            return roomNum;
           });
-      } else if(data[0]){
-        console.log("Something is here!!");
+      } else if (data[0]) {
+        console.log("Room available!! Entering now...");
+
+        $("#loadingCircle").addClass("hide");
 
         roomNum = data[0][0].id;
         console.log(roomNum);
@@ -78,13 +98,20 @@ $("#startButton").on("click", function () {
         });
 
         startChat(roomNum);
+        return roomNum;
       }
     });
-  });  
+  });
 });
 
 $("#hangupButton").on("click", function () {
-  location.reload();
+  $.ajax({
+    method: "DELETE",
+    url: "/api/rooms/" + roomNum
+  }).then(function () {
+    console.log("Room has been deleted...");
+    location.reload();
+  });
 });
 
 function startChat(roomNum) {
@@ -97,7 +124,7 @@ function startChat(roomNum) {
 
   if (room !== "") {
     socket.emit("create or join", room);
-    console.log("Attempted to create or  join room", room);
+    console.log("Attempted to create or join room", room);
   }
 
   socket.on("created", function (room) {
@@ -118,10 +145,17 @@ function startChat(roomNum) {
     isChannelReady = true;
 
     ///timer for switching to next chat. Change to 60 secs once we have everything
-    setTimeout(function() {
+    setTimeout(function () {
       console.log("Time up!");
+
+      $.ajax({
+        method: "DELETE",
+        url: "/api/rooms/" + room
+      }).then(function () {
+        console.log("Room has been deleted.");
+      });
       location.reload();
-    }, 3000);
+    }, 60000);
   });
 
   socket.on("joined", function (room) {
@@ -151,6 +185,17 @@ function sendMessage(message) {
   console.log("Client sending message: ", message);
   socket.emit("message", message);
 }
+
+socket.on("message", function (message) {
+  if (message === "bye") {
+    $.ajax({
+      method: "DELETE",
+      url: "/api/rooms/" + roomNum
+    }).then(function () {
+      console.log("Room has been deleted...");
+    });
+  }
+});
 
 // This client receives a message
 socket.on("message", function (message) {
