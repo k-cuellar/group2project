@@ -2,7 +2,7 @@ const db = require("../models");
 
 module.exports = function (passport, user) {
     const GoogleStrategy = require('passport-google-oauth20').Strategy;
-    const keys = require("../config/keys");
+    const keys = require("../config/keys.js");
 
     var User = user;
 
@@ -22,7 +22,7 @@ module.exports = function (passport, user) {
         new GoogleStrategy({
             clientID: keys.googleClientID,
             clientSecret: keys.googleClientSecret,
-            callbackURL: "/auth/google/callback",
+            callbackURL: process.env.GOOGLE_AUTH_CALLBACK_URL || "/auth/google/callback",
             //workaround to allow heroku to use google Oauth
             proxy: true
         },
