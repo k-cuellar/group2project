@@ -32,16 +32,16 @@ var socket = io.connect();
 // };
 
 //Deletes any rooms associated with user before starting
-$.get("/api/users/me", function (data) {
-  var deleteRoom = data.id
+// $.get("/api/users/me", function (data) {
+//   var deleteRoom = data.id
 
-  $.ajax({
-    method: "DELETE",
-    url: "/api/users/" + deleteRoom
-  }).then(function () {
-    console.log("Room associated with user has been cleared");
-  });
-});
+//   $.ajax({
+//     method: "DELETE",
+//     url: "/api/users/" + deleteRoom
+//   }).then(function () {
+//     console.log("Room associated with user has been cleared");
+//   });
+// });
 
 /////////////////////////////////////////////
 
