@@ -1,16 +1,17 @@
 var db = require("../models");
 
 module.exports = function(app) {
-  // Load index page
+  // Load login
   app.get("/", function(req, res) {
     res.render("login");
   });
 
-  // Load example page and pass in an example by id
+  // Load chat page
   app.get("/chat", function(req, res) {
     res.render("chat");
   });
 
+  // Load index page
   app.get("/index", function(req, res) {
     // res.render("index");
     db.Favorite.findAll({}).then(function(dbFavorite) {
